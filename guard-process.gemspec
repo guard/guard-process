@@ -1,10 +1,9 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "guard/process/version"
 
 Gem::Specification.new do |s|
   s.name        = "guard-process"
-  s.version     = Guard::Process::VERSION
+  s.version     = "0.0.1"
   s.authors     = ["Mark Kremer"]
   s.email       = ["mark@socialreferral.com"]
   s.homepage    = ""
@@ -19,4 +18,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency('guard', '>= 0.4.2')
+  s.add_development_dependency('guard-minitest')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('minitest')
+  s.add_development_dependency('rb-inotify')
 end

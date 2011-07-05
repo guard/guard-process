@@ -3,8 +3,6 @@ require 'guard/guard'
 
 module Guard
   class Process < Guard
-    VERSION = "0.0.1"
-
     def initialize(watchers = [], options = {})
       @process = nil
       @command = options[:command]
