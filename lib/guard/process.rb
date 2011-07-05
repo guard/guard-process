@@ -13,16 +13,18 @@ module Guard
     end
 
     def start
-      UI.info("Starting #{@name}")
+      UI.info("Starting process #{@name}")
       @process = @env ? ::IO.popen([@env, @command]) : IO.popen(@command)
+      UI.info("Started process #{@name}")
     end
 
     def stop
       if @process
-        UI.info("Stopping #{@name}")
+        UI.info("Stopping process #{@name}")
         ::Process.kill(@stop_signal, @process.pid)
         ::Process.waitpid(@process.pid) rescue Errno::ESRCH
         @process.close
+        UI.info("Stopped process #{@name}")
       end
     end
 
