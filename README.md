@@ -1,4 +1,4 @@
-Guard::Process
+Guard::Process [![Build Status](https://secure.travis-ci.org/socialreferral/guard-process.png)](http://travis-ci.org/socialreferral/guard-process)
 ==============
 Guard to run continues processes.
 
