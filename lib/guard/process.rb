@@ -5,6 +5,7 @@ module Guard
   class Process < Guard
     def initialize(watchers = [], options = {})
       @process = nil
+      @pid = nil
       @command = options[:command]
       @env = options[:env] 
       @name = options[:name]
@@ -12,18 +13,28 @@ module Guard
       super
     end
 
+    def process_running?
+      begin
+        @pid ? ::Process.kill(0, @pid) : false
+      rescue Errno::ESRCH => e
+        false
+      end
+    end
+
     def start
       UI.info("Starting process #{@name}")
-      @process = @env ? ::IO.popen([@env, @command]) : IO.popen(@command)
+      @process = @env ? IO.popen([@env, @command]) : IO.popen(@command)
       UI.info("Started process #{@name}")
+      @pid = @process.pid
     end
 
     def stop
       if @process
         UI.info("Stopping process #{@name}")
         ::Process.kill(@stop_signal, @process.pid)
-        ::Process.waitpid(@process.pid) rescue Errno::ESRCH
+        ::Process.waitpid(@pid) rescue Errno::ESRCH
         @process.close
+        @pid = nil
         UI.info("Stopped process #{@name}")
       end
     end
