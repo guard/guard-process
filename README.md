@@ -13,7 +13,7 @@ There is also an exellent screencast available on [Railscasts](http://railscasts
 Guardfile
 ---------
 You can add as many process Guards as you want, an example Guardfile:
-```ruby
+``` ruby
   guard 'process', :name => 'EndlessRunner', :command => 'rails runner Something::ThatGoesOnAndOn' do
     watch('Gemfile.lock')
   end
@@ -34,7 +34,10 @@ The following options are available:
 - stop_signal
   The signal that Guard::Process sends to terminate the process when it needs to stop/restart it. This defaults to 'TERM' (in some cases you may need KILL).
 - env
-  A Hash with environmental variables to set for the context where your command runs, like so: {"SSL_CERTS_DIR" => "/etc/ssl/certs", "JAVA_HOME" => "/usr/local/java"}
+  A Hash with environmental variables to set for the context where your command runs, like so:
+``` ruby
+  {"SSL_CERTS_DIR" => "/etc/ssl/certs", "JAVA_HOME" => "/usr/local/java"}
+```
 
 Development
 -----------
