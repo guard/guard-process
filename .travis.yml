@@ -1,0 +1,8 @@
+notifications:
+  recipients:
+    - mark@socialreferral.com
+    - andre@socialreferral.com
+rvm:
+  - 1.9.2
+  - jruby
+script: "bundle exec rake test"
