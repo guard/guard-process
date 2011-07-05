@@ -13,6 +13,7 @@ There is also an exellent screencast available on [Railscasts](http://railscasts
 Guardfile
 ---------
 You can add as many process Guards as you want, an example Guardfile:
+
 ``` ruby
   guard 'process', :name => 'EndlessRunner', :command => 'rails runner Something::ThatGoesOnAndOn' do
     watch('Gemfile.lock')
