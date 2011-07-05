@@ -1,3 +1,8 @@
+guard 'bundler' do
+  watch('Gemfile')
+  watch(/^.+\.gemspec/)
+end
+
 guard 'minitest' do
   # with Minitest::Unit
   watch(%r|^test/(.*)_test\.rb|)
