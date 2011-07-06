@@ -6,8 +6,8 @@ module Guard
     def initialize(watchers = [], options = {})
       @process = nil
       @pid = nil
-      @command = options[:command]
-      @env = options[:env] 
+      @command = options.fetch(:command).split
+      @env = options[:env]
       @name = options[:name]
       @stop_signal = options[:stop_signal] || "TERM"
       super
@@ -23,7 +23,8 @@ module Guard
 
     def start
       UI.info("Starting process #{@name}")
-      @process = @env ? IO.popen([@env, @command]) : IO.popen(@command)
+      @command.unshift(@env) if @env
+      @process = IO.popen(@command)
       UI.info("Started process #{@name}")
       @pid = @process.pid
     end
