@@ -13,7 +13,7 @@ class GuardProcessTest < MiniTest::Unit::TestCase
     @guard.stop if @guard.process_running?
     ENV['GUARD_ENV'] = nil
   end
-  
+
   def test_run_all_returns_true
     assert @guard.run_all
   end
@@ -46,5 +46,21 @@ class GuardProcessTest < MiniTest::Unit::TestCase
     assert @guard.process_running?
     @guard.reload
     assert @guard.process_running?
+  end
+
+  def test_commands_are_formatted_correctly_with_and_without_env
+    @options = {:command => 'echo test test', :name => 'EchoProcess'}
+    @env     = {'VAR3' => 'VALUE 3'}
+
+    IO.expects(:popen).with(["echo", "test", "test"]).returns(stub_everything)
+    IO.expects(:popen).with([@env, "echo", "test", "test"]).returns(stub_everything)
+
+    @guard = Guard::Process.new([], @options)
+    @guard.start and @guard.stop
+
+    @options[:env] = @env
+
+    @guard = Guard::Process.new([], @options)
+    @guard.start and @guard.stop
   end
 end
