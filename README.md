@@ -2,13 +2,15 @@ Guard::Process [![Build Status](https://secure.travis-ci.org/socialreferral/guar
 ==============
 Guard to run continues processes.
 
-This gem requires Ruby 1.9.2 or JRuby in 1.9 mode.
+This gem requires Ruby 1.9.2, 1.9.3 or JRuby in 1.9 mode.
 
 Usage
 -----
 Please read the [Guard documentation](https://github.com/guard/guard#readme) to learn how to use Guard.
 
 There is also an exellent screencast available on [Railscasts](http://railscasts.com/episodes/264-guard)
+
+Additionally there is a great introductory article on [Intridea Blog](http://intridea.com/2011/8/25/hire-a-guard-for-your-project) mentioning Guard::Process.
 
 Guardfile
 ---------
