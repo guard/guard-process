@@ -4,7 +4,7 @@ require 'rbconfig' unless defined?(RbConfig)
 
 Gem::Specification.new do |s|
   s.name        = "guard-process"
-  s.version     = "1.0.1"
+  s.version     = "1.0.2"
   s.authors     = ["Mark Kremer"]
   s.email       = ["mark@socialreferral.com"]
   s.homepage    = ""
@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency('guard', '>= 0.4.2')
+  s.add_dependency('spoon', '~> 0.0.1')
+  s.add_dependency('ffi', '~> 1.0.9')
   s.add_development_dependency('minitest')
   s.add_development_dependency('mocha')
   s.add_development_dependency('guard-minitest')

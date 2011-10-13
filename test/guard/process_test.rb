@@ -1,9 +1,10 @@
 require_relative '../test_helper'
+require 'timeout'
 
 class GuardProcessTest < MiniTest::Unit::TestCase
   def setup
     ENV['GUARD_ENV'] = 'test'
-    @command = "#{File.expand_path(File.dirname(__FILE__) + '/../run_me.rb')}"
+    @command = "ruby #{TEST_ROOT}/run_me.rb"
     @name = "RunMe"
     @options = {:command => @command, :name => @name}
     @guard = Guard::Process.new([], @options)
@@ -21,13 +22,6 @@ class GuardProcessTest < MiniTest::Unit::TestCase
   def test_run_on_change_does_a_reload
     @guard.expects(:reload)
     @guard.run_on_change("")
-  end
-
-  def test_env_is_passed_to_io_popen_if_given
-    @options[:env] = {'VAR1' => 'VALUE 1', 'VAR2' => 'VALUE 2'}
-    IO.expects(:popen).with([@options[:env], @command]).returns(stub_everything)
-    @guard = Guard::Process.new([], @options)
-    @guard.start
   end
 
   def test_start_runs_command_and_stop_stops_it
@@ -48,17 +42,43 @@ class GuardProcessTest < MiniTest::Unit::TestCase
     assert @guard.process_running?
   end
 
-  def test_commands_are_formatted_correctly_with_and_without_env
-    @options = {:command => 'echo test test', :name => 'EchoProcess'}
-    @env     = {'VAR3' => 'VALUE 3'}
+  def test_start_sets_env_properly
+    ENV['VAR1'] = 'VALUE A'
+    @options[:env] = {'VAR1' => 'VALUE 1', 'VAR3' => 'VALUE 2'}
 
-    IO.expects(:popen).with(["echo", "test", "test"]).returns(stub_everything)
-    IO.expects(:popen).with([@env, "echo", "test", "test"]).returns(stub_everything)
+    environment_file = "#{TEST_ROOT}/test_environment.txt"
+    File.delete(environment_file) if File.exists?(environment_file)
 
     @guard = Guard::Process.new([], @options)
-    @guard.start and @guard.stop
+    @guard.start
 
-    @options[:env] = @env
+    # Check the environment
+    assert_equal ENV['VAR1'], 'VALUE A'
+    assert_nil ENV['VAR2']
+    assert_nil ENV['VAR3']
+
+    # Wait for run_me.rb to write the environment details to file
+    Timeout.timeout(30) do
+      until File.exist?("#{TEST_ROOT}/test_environment.txt") do
+        sleep 0.5
+      end
+    end
+
+    # Read the written environment and convert it to a Hash, and get rid of the file
+    written_env = Hash[File.read("#{TEST_ROOT}/test_environment.txt").split("\n").map {|l| l.split(" = ")}]
+    File.delete("#{TEST_ROOT}/test_environment.txt")
+
+    # Verify that the written environment matches what was set in options[:env]
+    assert_equal 'VALUE 1', written_env['VAR1']
+    assert_equal nil, written_env['VAR2']
+    assert_equal 'VALUE 2', written_env['VAR3']
+  end
+
+  def test_commands_are_formatted_properly_for_spoon
+    @options = {:command => 'echo test test', :name => 'EchoProcess', :env => {"VAR1" => "VALUE 1"}}
+    ::Process.stubs(:kill).returns(true)
+
+    Spoon.expects(:spawnp).with("echo", "test", "test").returns(stub_everything)
 
     @guard = Guard::Process.new([], @options)
     @guard.start and @guard.stop
