@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Guard extension to run cli processes}
   s.description = %q{Guard extension to run cli processes}
 
-  s.required_ruby_version = '~> 1.9.2'
+  s.required_ruby_version = '>= 1.9.2'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
