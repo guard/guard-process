@@ -42,7 +42,7 @@ The following options are available:
 
 # Changes
 
-## 1.0.3
+## 1.0.4
 
 - Adds the dir option
 
