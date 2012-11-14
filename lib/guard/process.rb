@@ -9,6 +9,7 @@ module Guard
       @command = options.fetch(:command).split(" ")
       @env = options[:env] || {}
       @name = options[:name]
+      @dir = options[:dir] || Dir.getwd
       @stop_signal = options[:stop_signal] || "TERM"
       super
     end
@@ -28,7 +29,9 @@ module Guard
         original_env[key] = ENV[key]
         ENV[key] = value
       end
-      @pid = Spoon.spawnp(*@command)
+      Dir.chdir(@dir) do
+        @pid = Spoon.spawnp(*@command)
+      end
       original_env.each_pair do |key, value|
         ENV[key] = value
       end

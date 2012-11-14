@@ -74,6 +74,13 @@ class GuardProcessTest < MiniTest::Unit::TestCase
     assert_equal 'VALUE 2', written_env['VAR3']
   end
 
+  def test_changed_working_directory_if_option_dir_is_set
+    @options = {:command => 'ls', :name => 'LsProcess', :dir => TEST_ROOT}
+    Dir.expects(:chdir).with(TEST_ROOT)
+    @guard = Guard::Process.new([], @options)
+    @guard.start and @guard.stop
+  end
+
   def test_commands_are_formatted_properly_for_spoon
     @options = {:command => 'echo test test', :name => 'EchoProcess', :env => {"VAR1" => "VALUE 1"}}
     ::Process.stubs(:kill).returns(true)
