@@ -34,13 +34,23 @@ The following options are available:
   The directory in which you want to run the command, if none is given then Ruby's current working directory is used
 - stop_signal
   The signal that Guard::Process sends to terminate the process when it needs to stop/restart it. This defaults to 'TERM' (in some cases you may need KILL).
+- dont_stop
+  When a reload is triggered this will not stop the process, instead it will wait for the current process run to finish before starting a new one. This is useful for having guard-process execute commands that don't run constantly that you don't want to interrupt as they run.
 - env
   A Hash with environmental variables to set for the context where your command runs, like so:
 ``` ruby
   {"SSL_CERTS_DIR" => "/etc/ssl/certs", "JAVA_HOME" => "/usr/local/java"}
 ```
 
+# TODO
+
+Clean up the test cases
+
 # Changes
+
+## 1.0.5
+
+- Adds the dont_stop option
 
 ## 1.0.4
 

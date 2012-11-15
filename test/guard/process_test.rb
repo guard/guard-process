@@ -11,7 +11,13 @@ class GuardProcessTest < MiniTest::Unit::TestCase
   end
 
   def teardown
-    @guard.stop if @guard.process_running?
+    if @guard.process_running?
+      if @guard.wait_for_stop?
+        @guard.wait_for_stop
+      else
+        @guard.stop
+      end
+    end
     ENV['GUARD_ENV'] = nil
   end
 
@@ -36,10 +42,21 @@ class GuardProcessTest < MiniTest::Unit::TestCase
   end
 
   def test_reload_stops_and_starts_command
+    @guard.expects(:wait_for_stop).never
+    @guard.expects(:stop)
+    @guard.expects(:start).twice
     @guard.start
-    assert @guard.process_running?
     @guard.reload
-    assert @guard.process_running?
+  end
+
+  def test_reload_waits_for_command_to_finish_before_starting_again_if_dont_stop_option_set
+    @options = {:command => "ruby #{TEST_ROOT}/run_2_seconds.rb", :name => '2Seconds', :dont_stop => true}
+    @guard = Guard::Process.new([], @options)
+    @guard.expects(:wait_for_stop).at_least_once
+    @guard.expects(:stop).never
+    @guard.expects(:start).twice
+    @guard.start
+    @guard.reload
   end
 
   def test_start_sets_env_properly

@@ -11,7 +11,12 @@ module Guard
       @name = options[:name]
       @dir = options[:dir] || Dir.getwd
       @stop_signal = options[:stop_signal] || "TERM"
+      @dont_stop = options[:dont_stop]
       super
+    end
+
+    def wait_for_stop?
+      @dont_stop
     end
 
     def process_running?
@@ -48,8 +53,20 @@ module Guard
       end
     end
 
+    def wait_for_stop
+      if @pid
+        UI.info("Process #{@name} is still running...")
+        ::Process.waitpid(@pid) rescue Errno::ESRCH
+        UI.info("Process #{@name} has stopped!")
+      end
+    end
+
     def reload
-      stop
+      if wait_for_stop?
+        wait_for_stop
+      else
+        stop
+      end
       start
     end
 
