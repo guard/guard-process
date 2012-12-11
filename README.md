@@ -1,5 +1,5 @@
 # Guard::Process [![Build Status](https://secure.travis-ci.org/socialreferral/guard-process.png)](http://travis-ci.org/socialreferral/guard-process)
-Guard to run continues processes.
+Guard to run continuous processes.
 
 This gem requires Ruby 1.9.2, 1.9.3 or JRuby in 1.9 mode.
 
