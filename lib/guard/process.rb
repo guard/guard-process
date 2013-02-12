@@ -46,8 +46,11 @@ module Guard
     def stop
       if @pid
         UI.info("Stopping process #{@name}")
-        ::Process.kill(@stop_signal, @pid)
-        ::Process.waitpid(@pid) rescue Errno::ESRCH
+        begin
+          ::Process.kill(@stop_signal, @pid)
+          ::Process.waitpid(@pid)
+        rescue Errno::ESRCH
+        end
         @pid = nil
         UI.info("Stopped process #{@name}")
       end
