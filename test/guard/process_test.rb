@@ -101,6 +101,7 @@ class GuardProcessTest < MiniTest::Unit::TestCase
   def test_commands_are_formatted_properly_for_spoon
     @options = {:command => 'echo test test', :name => 'EchoProcess', :env => {"VAR1" => "VALUE 1"}}
     ::Process.stubs(:kill).returns(true)
+    ::Process.stubs(:waitpid).returns(true)
 
     Spoon.expects(:spawnp).with("echo", "test", "test").returns(stub_everything)
 
