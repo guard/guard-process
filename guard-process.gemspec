@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency('guard', '>= 0.4.2')
   s.add_dependency('spoon', '~> 0.0.1')
-  s.add_dependency('ffi', '~> 1.0.9')
   s.add_development_dependency('minitest')
   s.add_development_dependency('mocha')
   s.add_development_dependency('guard-minitest')
