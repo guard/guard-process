@@ -4,7 +4,7 @@ require 'rbconfig' unless defined?(RbConfig)
 
 Gem::Specification.new do |s|
   s.name        = "guard-process"
-  s.version     = "1.0.5"
+  s.version     = "1.0.6"
   s.authors     = ["Mark Kremer"]
   s.email       = ["mark@socialreferral.com"]
   s.homepage    = ""
