@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require 'timeout'
 
-class GuardProcessTest < MiniTest::Unit::TestCase
+class GuardProcessTest < MiniTest::Test
   def setup
     ENV['GUARD_ENV'] = 'test'
     @command = "ruby #{TEST_ROOT}/run_me.rb"
