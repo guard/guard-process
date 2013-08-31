@@ -108,4 +108,15 @@ class GuardProcessTest < MiniTest::Test
     @guard = Guard::Process.new([], @options)
     @guard.start and @guard.stop
   end
+
+  def test_commands_may_be_given_in_array_form
+    @options = {:command => ['echo', 'test', 'test'], :name => 'EchoProcess', :env => {"VAR1" => "VALUE 1"}}
+    ::Process.stubs(:kill).returns(true)
+    ::Process.stubs(:waitpid).returns(true)
+
+    Spoon.expects(:spawnp).with("echo", "test", "test").returns(stub_everything)
+
+    @guard = Guard::Process.new([], @options)
+    @guard.start and @guard.stop
+  end
 end

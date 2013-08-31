@@ -6,7 +6,8 @@ module Guard
   class Process < Guard
     def initialize(watchers = [], options = {})
       @pid = nil
-      @command = options.fetch(:command).split(" ")
+      @command = options.fetch(:command)
+      @command = @command.split(" ") if @command.is_a?(String)
       @env = options[:env] || {}
       @name = options[:name]
       @dir = options[:dir] || Dir.getwd

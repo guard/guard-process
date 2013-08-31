@@ -1,7 +1,7 @@
-# Guard::Process [![Build Status](https://secure.travis-ci.org/socialreferral/guard-process.png)](http://travis-ci.org/socialreferral/guard-process)
+# Guard::Process [![Build Status](https://secure.travis-ci.org/guard/guard-process.png)](http://travis-ci.org/guard/guard-process)
 Guard to run processes and commands.
 
-This gem requires Ruby 1.9.2, 1.9.3 or JRuby in 1.9 mode.
+This gem requires Ruby 1.9.2, 1.9.3, 2.0.0 or JRuby in 1.9 mode.
 
 # Usage
 Please read the [Guard documentation](https://github.com/guard/guard#readme) to learn how to use Guard.
@@ -18,7 +18,7 @@ You can add as many process Guards as you want, an example Guardfile:
     watch('Gemfile.lock')
   end
 
-  guard 'process', :name => 'AnotherRunner', :command => 'rails runner AnotherRunner' do
+  guard 'process', :name => 'AnotherRunner', :command => ['rails', 'runner', 'AnotherRunner'] do
     watch('Gemfile.lock')
   end
 ```
@@ -48,6 +48,10 @@ Clean up the test cases
 
 # Changes
 
+## 1.0.6
+
+- Allow passing in command as an Array as well as a String
+
 ## 1.0.5
 
 - Adds the dont_stop option
@@ -58,7 +62,7 @@ Clean up the test cases
 
 # Development
 - Source hosted on [GitHub](https://github.com)
-- Please report issues and feature requests using [GitHub issues](https://github.com/socialreferral/guard-process/issues)
+- Please report issues and feature requests using [GitHub issues](https://github.com/guard/guard-process/issues)
 
 Pull requests are welcome, please make sure your patches are well tested before contributing. When sending a pull request:
 - Use a topic branch for your change
