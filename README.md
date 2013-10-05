@@ -29,7 +29,7 @@ The following options are available:
 - name
   The display name of your process in Guard, this is shown when Guard::Process is starting and stopping your process
 - command
-  The command to run as you would run it from the command line
+  The command to run as you would run it from the command line. NOTE: You cannot string commands together like you would on the shell with ; or && because of the way guard-process launches its processes, if you need to combine several shell commands you should write a shell script and call from your command.
 - dir
   The directory in which you want to run the command, if none is given then Ruby's current working directory is used
 - stop_signal
