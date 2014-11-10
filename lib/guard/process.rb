@@ -1,10 +1,10 @@
 require 'guard'
-require 'guard/guard'
+require 'guard/plugin'
 require 'spoon'
 
 module Guard
-  class Process < Guard
-    def initialize(watchers = [], options = {})
+  class Process < Plugin
+    def initialize(options = {})
       @pid = nil
       @command = options.fetch(:command)
       @command = @command.split(" ") if @command.is_a?(String)
