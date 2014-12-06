@@ -11,14 +11,14 @@ Gem::Specification.new do |s|
   s.summary     = %q{Guard extension to run cli processes}
   s.description = %q{Guard extension to run cli processes}
 
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 1.9.3'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency('guard', '>= 0.4.2')
+  s.add_dependency('guard', '>= 2.0.0')
   s.add_dependency('spoon', '~> 0.0.1')
   s.add_development_dependency('minitest')
   s.add_development_dependency('mocha')

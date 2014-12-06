@@ -3,8 +3,8 @@ notifications:
     - mark@socialreferral.com
     - andre@socialreferral.com
 rvm:
-  - 1.9.2
   - 1.9.3
   - 2.0.0
+  - 2.1.4
   - jruby-19mode
 script: "bundle exec rake test"

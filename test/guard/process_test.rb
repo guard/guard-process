@@ -7,7 +7,7 @@ class GuardProcessTest < MiniTest::Test
     @command = "ruby #{TEST_ROOT}/run_me.rb"
     @name = "RunMe"
     @options = {:command => @command, :name => @name}
-    @guard = Guard::Process.new([], @options)
+    @guard = Guard::Process.new(@options)
   end
 
   def teardown
@@ -51,7 +51,7 @@ class GuardProcessTest < MiniTest::Test
 
   def test_reload_waits_for_command_to_finish_before_starting_again_if_dont_stop_option_set
     @options = {:command => "ruby #{TEST_ROOT}/run_2_seconds.rb", :name => '2Seconds', :dont_stop => true}
-    @guard = Guard::Process.new([], @options)
+    @guard = Guard::Process.new(@options)
     @guard.expects(:wait_for_stop).at_least_once
     @guard.expects(:stop).never
     @guard.expects(:start).twice
@@ -66,7 +66,7 @@ class GuardProcessTest < MiniTest::Test
     environment_file = "#{TEST_ROOT}/test_environment.txt"
     File.delete(environment_file) if File.exists?(environment_file)
 
-    @guard = Guard::Process.new([], @options)
+    @guard = Guard::Process.new(@options)
     @guard.start
 
     # Check the environment
@@ -94,7 +94,7 @@ class GuardProcessTest < MiniTest::Test
   def test_changed_working_directory_if_option_dir_is_set
     @options = {:command => 'ls', :name => 'LsProcess', :dir => TEST_ROOT}
     Dir.expects(:chdir).with(TEST_ROOT)
-    @guard = Guard::Process.new([], @options)
+    @guard = Guard::Process.new(@options)
     @guard.start and @guard.stop
   end
 
@@ -105,7 +105,7 @@ class GuardProcessTest < MiniTest::Test
 
     Spoon.expects(:spawnp).with("echo", "test", "test").returns(stub_everything)
 
-    @guard = Guard::Process.new([], @options)
+    @guard = Guard::Process.new(@options)
     @guard.start and @guard.stop
   end
 
@@ -116,7 +116,7 @@ class GuardProcessTest < MiniTest::Test
 
     Spoon.expects(:spawnp).with("echo", "test", "test").returns(stub_everything)
 
-    @guard = Guard::Process.new([], @options)
+    @guard = Guard::Process.new(@options)
     @guard.start and @guard.stop
   end
 end
