@@ -1,7 +1,7 @@
 # Guard::Process [![Build Status](https://secure.travis-ci.org/guard/guard-process.png)](http://travis-ci.org/guard/guard-process)
 Guard to run processes and commands.
 
-This gem requires Ruby 1.9.2, 1.9.3, 2.0.0 or JRuby in 1.9 mode.
+This gem requires Ruby 1.9.3, 2.0.0 or JRuby in 1.9 mode.
 
 # Usage
 Please read the [Guard documentation](https://github.com/guard/guard#readme) to learn how to use Guard.
@@ -47,6 +47,10 @@ The following options are available:
 Clean up the test cases
 
 # Changes
+
+## 1.1.0
+
+- Updated for Guard 2.x
 
 ## 1.0.6
 

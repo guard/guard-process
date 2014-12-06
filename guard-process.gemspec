@@ -4,9 +4,9 @@ require 'rbconfig' unless defined?(RbConfig)
 
 Gem::Specification.new do |s|
   s.name        = "guard-process"
-  s.version     = "1.0.6"
+  s.version     = "1.1.0"
   s.authors     = ["Mark Kremer"]
-  s.email       = ["mark@socialreferral.com"]
+  s.email       = ["mark@without-brains.net"]
   s.homepage    = ""
   s.summary     = %q{Guard extension to run cli processes}
   s.description = %q{Guard extension to run cli processes}
