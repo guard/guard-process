@@ -9,8 +9,8 @@ end
 
 # Note: this is the only group ignored on Travis
 group :development do
-  gem 'guard-minitest'
-  gem 'guard-bundler'
+  gem 'guard-minitest', require: false
+  gem 'guard-bundler', require: false
   gem 'pry'
 end
 
