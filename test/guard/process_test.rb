@@ -3,7 +3,7 @@ require 'timeout'
 
 class GuardProcessTest < MiniTest::Test
   def setup
-    ENV['GUARD_ENV'] = 'test'
+    Guard::UI.stubs(:info)
     @command = "ruby #{TEST_ROOT}/run_me.rb"
     @name = "RunMe"
     @options = {:command => @command, :name => @name}
