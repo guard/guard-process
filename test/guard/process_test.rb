@@ -11,13 +11,8 @@ class GuardProcessTest < MiniTest::Test
   end
 
   def teardown
-    if @guard.process_running?
-      if @guard.wait_for_stop?
-        @guard.wait_for_stop
-      else
-        @guard.stop
-      end
-    end
+    return unless @guard.process_running?
+    @guard.wait_for_stop? ?  @guard.wait_for_stop : @guard.stop
     ENV['GUARD_ENV'] = nil
   end
 
