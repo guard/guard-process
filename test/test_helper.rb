@@ -1,10 +1,9 @@
 require 'minitest/autorun'
 require 'mocha/setup'
 
-require 'guard/notifier'
 require 'guard/compat/test/helper'
 require 'guard/process'
 
-require 'pry'
+require 'pry' unless ENV['CI'] == 'true'
 
 TEST_ROOT = File.expand_path(File.dirname(__FILE__))

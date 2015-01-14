@@ -3,7 +3,7 @@ require 'timeout'
 
 class GuardProcessTest < MiniTest::Test
   def setup
-    ENV['GUARD_ENV'] = 'test'
+    Guard::UI.stubs(:info)
     @command = "ruby #{TEST_ROOT}/run_me.rb"
     @name = "RunMe"
     @options = {:command => @command, :name => @name}
@@ -11,14 +11,9 @@ class GuardProcessTest < MiniTest::Test
   end
 
   def teardown
-    if @guard.process_running?
-      if @guard.wait_for_stop?
-        @guard.wait_for_stop
-      else
-        @guard.stop
-      end
-    end
-    ENV['GUARD_ENV'] = nil
+    return unless @guard.process_running?
+
+    @guard.wait_for_stop? ?  @guard.wait_for_stop : @guard.stop
   end
 
   def test_run_all_returns_true
