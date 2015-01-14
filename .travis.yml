@@ -10,3 +10,6 @@ rvm:
   - 2.1.4
   - jruby-19mode
 script: "bundle exec rake test"
+
+# Use Travis AUFS containers
+sudo: false
