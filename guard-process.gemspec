@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency('guard', '>= 2.0.0')
-  s.add_dependency('guard-compat', '~> 0.1', '>= 0.1.1')
+  s.add_dependency('guard-compat', '~> 1.0')
   s.add_dependency('spoon', '~> 0.0.1')
   s.add_development_dependency('minitest')
   s.add_development_dependency('mocha')
