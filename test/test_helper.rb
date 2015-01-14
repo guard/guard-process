@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'mocha/setup'
 
-require 'guard/notifier'
 require 'guard/compat/test/helper'
 require 'guard/process'
 
