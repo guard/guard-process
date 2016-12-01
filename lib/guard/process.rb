@@ -40,27 +40,27 @@ module Guard
       original_env.each_pair do |key, value|
         ENV[key] = value
       end
-      UI.info("Started process #{@name}")
+      UI.info("Started process #{@name} (pid=#{@pid})")
     end
 
     def stop
       if @pid
-        UI.info("Stopping process #{@name}")
+        UI.info("Stopping process #{@name} (pid=#{@pid})")
         begin
           ::Process.kill(@stop_signal, @pid)
           ::Process.waitpid(@pid)
         rescue Errno::ESRCH
         end
+        UI.info("Stopped process #{@name} (pid=#{@pid})")
         @pid = nil
-        UI.info("Stopped process #{@name}")
       end
     end
 
     def wait_for_stop
       if @pid
-        UI.info("Process #{@name} is still running...")
+        UI.info("Process #{@name} (pid=#{@pid}) is still running...")
         ::Process.waitpid(@pid) rescue Errno::ESRCH
-        UI.info("Process #{@name} has stopped!")
+        UI.info("Process #{@name} (pid=#{@pid}) has stopped!")
       end
     end
 
