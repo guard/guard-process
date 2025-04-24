@@ -77,4 +77,4 @@ Pull requests are welcome, please make sure your patches are well tested before 
 Guard::Process is released under the MIT license.
 
 # Author
-[Mark Kremer](https://github.com/mkremer)
+[Mark Cornelissen](https://github.com/mrkcor)
